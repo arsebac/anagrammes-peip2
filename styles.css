@@ -1,0 +1,24 @@
+.mauvaisMot{
+    background-color: red;
+}
+.bonMot {
+    background-color: green;
+}
+ #log{
+     width: 25%;
+ }
+ #lettresContainer{
+     margin-left: auto;
+     margin-right: auto;
+    margin-bottom: 50px;
+    margin-top: 40px;
+}
+body {text-align: center;}
+td,th{
+    border: 1px solid #CCC;
+    font-size: 250%;
+
+}
+#chrono{
+    display: inline-block;
+}

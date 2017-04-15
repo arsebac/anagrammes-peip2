@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css" type="text/css" />
+    <meta charset="UTF-8">
+    <title>Partie d'anagrammes</title>
+    <script src="partie.js"></script>
+</head>
+<body onload="loadInformation()">
+    <div id="chargement"></div>
+    <div id="jeux">
+        <h1>Voici le tirage des lettres :</h1>
+        <table id="lettresContainer">
+            <tr>
+                <td class="letter" id="lettre0">
+                    ?
+                </td>
+                <td class="letter" id="lettre1">
+                    ?
+                </td>
+                <td class="letter" id="lettre2">
+                    ?
+                </td>
+                <td class="letter" id="lettre3">
+                    ?
+                </td>
+                <td class="letter" id="lettre4">
+                    ?
+                </td>
+                <td class="letter" id="lettre5">
+                    ?
+                </td>
+                <td class="letter" id="lettre6">
+                    ?
+                </td>
+                <td class="letter" id="lettre7">
+                    ?
+                </td>
+            </tr>
+        </table>
+        <input type="button" value="Abandonner" id="abandon" onclick="tempsFini()"/>
+        <input type="button" value="Mélanger" id="shuffle" onclick="shuffle()"/>
+        <input type="button" value="Nouvelles lettres" id="renew" onclick="nouvellesLettres()"/>
+        <div id="chrono"></div>
+        <div id="log">
+
+        </div>
+        <input type="text" id="entree"  onsubmit="input()">
+        <input type="button" id="envoyer" value="Envoyer" onclick="input()">
+    </div>
+</body>
+</html>
