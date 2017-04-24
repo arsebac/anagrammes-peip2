@@ -3,6 +3,19 @@
  */
 var nombreMots = 0;
 var lettres = "????????";
+function askPseudo() {
+    document.getElementById("jeux").style.display ="none";
+    document.getElementById("askPseudo").style.display = "block";
+}
+function setPseudo() {
+    pseudo = document.getElementById("pseudo").value;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET',"info.php?action=setPseudo&value="+pseudo);
+    xhr.send();
+    document.getElementById("jeux").style.display = "block";
+    document.getElementById("askPseudo").style.display ="none";
+    init(lettres);
+}
 function loadInformation() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET',"info.php?action=startPartie");
@@ -11,7 +24,11 @@ function loadInformation() {
             if(xhr.status == 200){
                 var res = JSON.parse(xhr.responseText);
                 lettres = res.lettres;
-                init(lettres);
+                if(!res.hasPseudo){
+                    askPseudo();
+                }else{
+                    init(lettres);
+                }
             }else{
                 console.log("erreur"+xhr.status);
             }

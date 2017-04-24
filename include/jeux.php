@@ -10,11 +10,22 @@ function getLetter(){
     $alphabet = "abcdefghijklmnopqrstuvwxyz";
     return substr($alphabet, rand(0,25), 1);
 }
+function getVoyelle(){
+    $voyelle = "aeiouy";
+    return substr($voyelle, rand(0,5), 1);
+}
 function randomLetters()
 {
+    $nbVoyelles = rand(2,6);
     $lettres = "";
     for ($i = 0; $i < 8; $i++) {
-       $lettres .= getLetter();
+        if($i<$nbVoyelles) {
+
+            $lettres .= getVoyelle();
+        }else{
+            $lettres .= getLetter();
+
+        }
     }
     return $lettres;
 }
@@ -22,8 +33,12 @@ function registerPartie(){
     echo "jeux.php registerPartie()";
 }
 
-function json_partie($letters){
-    return json_encode(array("lettres"=>$letters));
+function json_partie($letters,$has,$pseudo){
+
+    if(!$has){
+        return json_encode(array("lettres"=>$letters,"hasPseudo"=> false));
+    }
+    return json_encode(array("lettres"=>$letters,"hasPseudo"=>true,"pseudo"=>$pseudo));
 }
 function json_mot_reponse($etat,$mot){
     return json_encode(array("mot" => $mot,

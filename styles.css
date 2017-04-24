@@ -1,24 +1,81 @@
-.mauvaisMot{
+.mauvaisMot {
     background-color: red;
 }
+
 .bonMot {
     background-color: green;
 }
- #log{
-     width: 25%;
- }
- #lettresContainer{
-     margin-left: auto;
-     margin-right: auto;
+
+#log {
+    width: 25%;
+}
+
+#lettresContainer {
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 50px;
     margin-top: 40px;
 }
-body {text-align: center;}
-td,th{
-    border: 1px solid #CCC;
-    font-size: 250%;
+
+body {
+    text-align: center;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 26px;
+    line-height: 2.4;
+}
+.miniBody{
+    font-size: 20px;
 
 }
-#chrono{
+td, th {
+    border: 1px solid #CCC;
+    font-size: 250%;
+}
+#chrono {
+    display: inline;
+}
+
+#askPseudo {
+    display: none;
+}
+
+button,input[type="button"] {
+    color: #fff;
     display: inline-block;
+    line-height: 50px;
+    height: 50px;
+    padding: 0 16px;
+    border-radius: 2px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 10px;
+    background-color: #09f;
+}
+button:hover,input[type="button"]:hover{
+    background-color: #33adff;
+    box-shadow: 2px 2px 0 #d1d1d1;
+}
+#renew{
+    margin-right: 1rem;
+    margin-bottom: 2vh;
+    width: 20rem;
+}
+input[type="text"]{
+    height: 43px;
+}
+input[type="text"]:hover{
+    border: 4px red solid;
+}
+#log{
+    width:15%;
+    float: left;
+    top:20%;
+    position: absolute;
+}
+#resultat{
+
+    font-size: 100%;
+    line-height: normal;
+    left:30%;
+    position: relative;
 }

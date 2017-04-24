@@ -12,7 +12,7 @@
 
 // Ne marche pas.
 function recupererClassement(){
-    $array = file("../donnees/score");
+    $array = file("donnees/score");
     $class = array();
     for($i=0;$i<count($array);$i++){
         $class[$i] = explode(";", $array[$i]);

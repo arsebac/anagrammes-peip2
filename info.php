@@ -17,6 +17,10 @@ switch ($_GET["action"]){
     case "try":
         testMot($_GET["value"]);
         break;
+    case "setPseudo":
+        $_SESSION["pseudo"] = $_GET["value"];
+        echo "ok".$_SESSION["pseudo"];
+        break;
     case "reset":
         session_destroy();
         header('Location:newGame.php');
@@ -37,5 +41,9 @@ function testMot($mot){
     echo json_mot_reponse($trouve,$mot);
 }
 function startPartie(){
-    echo json_partie($_SESSION["lettres"]);
+    if(!array_key_exists("pseudo",$_SESSION)){
+        echo  json_partie($_SESSION["lettres"],false,"");
+    }else{
+        echo  json_partie($_SESSION["lettres"],true,$_SESSION["pseudo"]);
+    }
 }

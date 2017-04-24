@@ -7,8 +7,6 @@ require_once "include/jeux.php";
  * Time: 20:08
  */
 session_start();
-if(!isset($_SESSION["lettres"])){
-    $_SESSION["lettres"] = randomLetters();
-    $_SESSION["trouves"] = array();
-}
+$_SESSION["lettres"] = randomLetters();
+$_SESSION["trouves"] = array();
 header('Location:partie.html');
