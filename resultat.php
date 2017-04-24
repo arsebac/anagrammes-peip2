@@ -1,12 +1,8 @@
 <?php
 require_once "include/jeux.php";
-/**
- * Created by PhpStorm.
- * User: Hasaghi
- * Date: 14/04/2017
- * Time: 23:01
- */
+
 session_start();
+
 if (!var_session_exists("lettres") || !var_session_exists("trouves")) {
     header('Location:newGame.php');
 }

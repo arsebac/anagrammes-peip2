@@ -65,7 +65,7 @@ function motTrouve($mot){
     return false;
 }
 function var_session_exists($name){
-    return !((!isset($_SESSION[$name])) || $_SESSION[$name] == '');
+    return !(!array_key_exists($name, $_SESSION) || $_SESSION[$name] == '');
 }
 function afficher_classement(){
     echo "<ul id='classement'>";

@@ -29,7 +29,8 @@ body {
 }
 td, th {
     border: 1px solid #CCC;
-    font-size: 250%;
+    font-size: 100%;
+    font-size: medium;
 }
 #chrono {
     display: inline;
