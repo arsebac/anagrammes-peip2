@@ -11,10 +11,7 @@
 }
 
 #lettresContainer {
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 50px;
-    margin-top: 40px;
+    margin: 40px auto 50px;
 }
 
 body {
@@ -29,7 +26,6 @@ body {
 }
 td, th {
     border: 1px solid #CCC;
-    font-size: 100%;
     font-size: medium;
 }
 #chrono {

@@ -2,11 +2,13 @@
 require_once "include/jeux.php";
 
 session_start();
-
+// Si aucune partie n'est lancée, nous redirigons l'utilisateur vers la page d'accueil
 if (!var_session_exists("lettres") || !var_session_exists("trouves")) {
     header('Location:newGame.php');
 }
+// Affiche le header de la page HTML
 require "include/resultHeader.html";
+// Affiche le classement
 require_once "include/classement.php";
 ?>
 <?php
@@ -22,7 +24,7 @@ require_once "include/classement.php";
                 <td>Mots trouvés</td>
                 <td>
                     <ul>
-                        <?php
+                        <?php // On parcours la liste des mots trouvés
                         for ($i = 0; $i < count($_SESSION["trouves"]); $i++) {
                             echo "<li class='mot'>" . $_SESSION["trouves"][$i] . "</li>";
                         }
@@ -48,7 +50,6 @@ require_once "include/classement.php";
     <a class="twitter-share-button"
        href="https://twitter.com/intent/tweet?text=J%27ai%20trouvé%20<?php echo count($_SESSION["trouves"]); ?>%20anagrammes.%20Qui%20peut%20me%20battre%20?">
         Partager sur Twitter</a>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
     </body>
     </html>
 

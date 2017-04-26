@@ -4,6 +4,8 @@
     define("FILE", "donnees/score.txt");
     define("MAX_ITEM", 10);
     $classement = array();
+
+    // Retourne un tableau des meilleurs scores
     function recupererClassement()
     {
         $array = file(FILE);
@@ -14,25 +16,26 @@
         }
         return $classement;
     }
-
-    function addToClassement($nom, $resultat)
+    // Ajoute un score dans le classement
+    function addToClassement($nom, $pts)
     {
         $classement = recupererClassement();
         $len = count($classement);
-        if ($classement[$len - 1][0] > $resultat && $len > MAX_ITEM) {
+        if ($classement[$len - 1][0] > $pts && $len > MAX_ITEM) { // Si le plus petit meilleurs score ,
             return false;
         }
         for ($i = $len; $i >= 0; $i--) {
             $classement[$i][0] = $classement[$i - 1][0];
             $classement[$i][1] = $classement[$i - 1][1];
-            if ($classement[$i][0] > $resultat) {
-                $classement[$i] = array($resultat, $nom . "\n");
+            if ($classement[$i][0] > $pts) {
+                $classement[$i] = array($pts, $nom . "\n");
                 break;
             }
         }
         save_classement($classement);
     }
 
+    // Enregistre le classement dans un fichier
     function save_classement($classement)
     {
         $str = "";
@@ -41,9 +44,11 @@
         }
         file_put_contents(FILE, $str);
     }
-if(var_session_exists("trouves")){
-    addToClassement($_SESSION["pseudo"], count($_SESSION["trouves"]));
-}
+
+
+    if (var_session_exists("trouves")) {
+        addToClassement($_SESSION["pseudo"], count($_SESSION["trouves"]));
+    }
     $i = 1;
     $z = recupererClassement();
     foreach ($z as $item) {

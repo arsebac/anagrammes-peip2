@@ -1,12 +1,13 @@
-/**
- * Created by Hasaghi on 14/04/2017.
- */
 var nombreMots = 0;
 var lettres = "????????";
+var pseudo;
+var tempsRestant = 0;
+// Fonction permettant d'afficher la partie de la fenêtre demandant le pseudo de l'utilisateur
 function askPseudo() {
     document.getElementById("jeux").style.display ="none";
     document.getElementById("askPseudo").style.display = "block";
 }
+// Fonction appelée quand le pseudo est entré
 function setPseudo() {
     pseudo = document.getElementById("pseudo").value;
     var xhr = new XMLHttpRequest();
@@ -16,12 +17,13 @@ function setPseudo() {
     document.getElementById("askPseudo").style.display ="none";
     init(lettres);
 }
+// Charge les informations de la partie
 function loadInformation() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET',"info.php?action=startPartie");
     xhr.onreadystatechange = function () {
-        if(xhr.readyState == 4){
-            if(xhr.status == 200){
+        if(xhr.readyState === 4){
+            if(xhr.status === 200){
                 var res = JSON.parse(xhr.responseText);
                 lettres = res.lettres;
                 if(!res.hasPseudo){
@@ -36,35 +38,34 @@ function loadInformation() {
     };
     xhr.send();
 }
+
 function tempsFini() {
-    console.log("Temps fini !\nVous avez trouvé "+ nombreMots +" mots !");
     window.location.replace("resultat.php");
 }
-var tempsRestant = 0;
-console.log(tempsRestant);
+
+// Chronomètre de la partie
 function timer(tps) {
     if(tps !== undefined)
     tempsRestant = tps;
     document.getElementById("chrono").innerHTML = "0:"+tempsRestant;
-    console.log(tempsRestant);
     if(tempsRestant === 0){
         tempsFini();
     }else{
         tempsRestant = tempsRestant - 1;
-        console.log(tempsRestant);
         setTimeout(timer, 1000)
     }
 }
+// Fonction appelée lors du lancement de la partie
 function init(lettres) {
     document.getElementById("chargement").style.display = "none";
     document.getElementById('entree').onkeypress = function(e){
-        console.log(e);
         if (!e) e = window.event;
         var keyCode = e.keyCode || e.which;
-        if (keyCode == '13'){
+        if (keyCode == '13'){ // Touche entrée détectée
             input();
             return false;
         }
+        return true;
     }
     for(i=0;i<8;i++){
         document.getElementById("lettre"+i).innerHTML = lettres[i];
@@ -72,34 +73,38 @@ function init(lettres) {
     timer(60);
 
 }
-function displayMotTeste(mot, b) {
+// Affiche le retour sur un mot rendu
+// Selon si le mot est valide ou pas
+function displayMotTeste(mot, motCorrect) {
     var div = document.createElement("div");
-    if(b){
+    if(motCorrect){
         div.className = "bonMot";
         var t = document.createTextNode(mot+" trouvé");
     }else{
         div.className = "mauvaisMot";
         var t = document.createTextNode(mot+" tenté");
     }      // Create a text node
-    div.appendChild(t);                                // Append the text to <button>
+    div.appendChild(t);
     document.getElementById("log").appendChild(div);
 }
+
+// Méthode appelée lorsqu'un mot est entré.
+// Envoie le mot au serveur qui vérifie sa validité
 function input() {
     essai = document.getElementById("entree").value;
     document.getElementById("entree").value = "";
     var xhr = new XMLHttpRequest();
     xhr.open('GET',"info.php?action=try&value="+essai);
     xhr.onreadystatechange = function () {
-        if(xhr.readyState == 4){
-            if(xhr.status == 200){
-                var res = JSON.parse(xhr.responseText);
-                if(res.etat == true){
+        if(xhr.readyState === 4){
+            if(xhr.status === 200){
+                var reponse = JSON.parse(xhr.responseText);
+                if(reponse.etat == true){
                     nombreMots ++;
                     tempsRestant = tempsRestant + 5;
-                    console.log(tempsRestant);
-                    displayMotTeste(res.mot,true);
+                    displayMotTeste(reponse.mot,true);
                 }else{
-                    displayMotTeste(res.mot,false);
+                    displayMotTeste(reponse.mot,false);
                 }
 
             }else{
@@ -110,8 +115,9 @@ function input() {
     xhr.send();
 
 }
+// Permet de mélanger l'ordre d'affichage des lettres
 function shuffle() {
-    var position = [ 0,1,2,3,4,5,6,7]
+    var position = [ 0,1,2,3,4,5,6,7];
     for(i = 0;i<8;i++){
         index = Math.floor(Math.random() * (8 - i));
         positionIemeLettre = position[index];
@@ -119,12 +125,14 @@ function shuffle() {
         document.getElementById("lettre"+positionIemeLettre).innerHTML = lettres[i];
     }
 }
+
+// Méthode pour renouveller les lettres au cours d'une partie
 function nouvellesLettres() {
     var xhr = new XMLHttpRequest();
     xhr.open('GET',"info.php?action=new");
     xhr.onreadystatechange = function () {
-        if(xhr.readyState == 4){
-            if(xhr.status == 200){
+        if(xhr.readyState === 4){
+            if(xhr.status === 200){
                 var res = JSON.parse(xhr.responseText);
                 lettres = res.lettres;
                 shuffle();
